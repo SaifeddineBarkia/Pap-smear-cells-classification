@@ -1,10 +1,18 @@
-# Pap-smear-cells-classification
+# Pap-Smear Cell Classification — 1st place 🥇
 
-This Work was done as part of TELECOM-PARIS's course IMA205: 'Apprentissage pour l'image et la reconnaissance d'objet'. I finished first in the challenge among 48 Telecom-Paris students). The assignment is about identifying the cells type.
+> Télécom Paris · IMA205 *Learning for images & object recognition* · Kaggle class challenge 2021
+> **Saifeddine Barkia**, ranked **1st out of 48 students**
 
-I achieved an  MCC (Matthews correlation coefficient) score 0.832 by using transfer learning.
+Classify cervical cells from Pap-smear microscopy images, both as a binary task (normal vs abnormal) and as a multi-class task (cell type). Automated screening matters: the WHO estimates over 500,000 new cervical cancer cases a year, around 90% of them preventable with early detection, and manual slide reading is slow and error-prone.
 
-Link to the Kaggle competition : https://www.kaggle.com/c/ima205challenge2021bis/overview
+**Leaderboard result: MCC 0.832** (Matthews correlation coefficient) · [Competition page](https://www.kaggle.com/c/ima205challenge2021bis/overview)
 
-The Papanicolaou test, abbreviated as Pap test or Pap smear test, is a method of cervical screening used to detect potentially precancerous and cancerous processes. The World Health Organization - WHO - stated that there are at least 500.000 new case per year worldwide and that around 90% of them could be avoided if detected and treated at an early stage. The test is usually performed manually by taking a specimen - smear - from the uterine cervix. This is then transferred onto a thin glass plate  and stained using the Papanikolaou method which makes it possible to analyse the cells with a microscope. However, manual screening is a tedious and error prone task. This is why the implementation of an efficient computer-assisted methodology for automated classification οf cell images is of uttermost importance.
+## Approach
 
+1. **Data:** each cell comes with its image plus nucleus and cytoplasm segmentation masks, used to build 3 views per cell.
+2. **Classical ML baseline:** hand-crafted features (HOG descriptors, colour histograms, Haralick texture and Zernike moments) computed on the cell, nucleus and cytoplasm images with SVM, AdaBoost and Random Forest, tuned by grid search.
+3. **Deep learning:** transfer learning with ImageNet-pretrained CNNs, data augmentation and an MCC-based validation metric. This gave the best leaderboard score.
+
+The notebook [`Binary & multi classification.ipynb`](./Binary%20%26%20multi%20classification.ipynb) contains the full pipeline. It needs about 25 GB of RAM; see the notes inside.
+
+**Stack:** Python · TensorFlow/Keras · scikit-learn · scikit-image · mahotas · OpenCV
